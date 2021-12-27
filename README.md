@@ -1,4 +1,4 @@
 # SmartHome
 #hello
-Tolgay baba king
+Tolgay  king
 sa
