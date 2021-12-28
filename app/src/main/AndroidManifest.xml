@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".Cleaning.Cleaning"
+            android:exported="false" />
+        <activity
+            android:name=".Lightning.Lightning"
+            android:exported="false" />
+        <activity
+            android:name=".Heating.Heating"
+            android:exported="false" />
+        <activity
             android:name=".SmartHomeMenu"
             android:exported="false" />
         <activity
