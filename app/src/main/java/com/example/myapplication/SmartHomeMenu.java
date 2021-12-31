@@ -1,11 +1,18 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Cleaning.Cleaning;
+import com.example.myapplication.Heating.Heating;
+import com.example.myapplication.Lightning.Lightning;
+
 public class SmartHomeMenu extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,26 +23,57 @@ public class SmartHomeMenu extends AppCompatActivity {
         Button lightButton = findViewById(R.id.lightning);
         Button cleanButton = findViewById(R.id.cleaning);
 
+        int value = 0;
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            value = extras.getInt("id");
+            System.out.println(value+" mainin ici");
+        }
 
 
-
-
+        int finalValue = value;
         heatButton.setOnClickListener(v -> {
+
+            Toast.makeText(getApplicationContext(),
+                    "Succesfull",Toast.LENGTH_SHORT).show();
+            //go new page
+
+            Intent intent = new Intent(getApplicationContext(), Heating.class);
+            intent.putExtra("idHeating", finalValue);
+            startActivity(intent);
 
         });
 
 
         lightButton.setOnClickListener(v -> {
 
+            Toast.makeText(getApplicationContext(),
+                    "Succesfull",Toast.LENGTH_SHORT).show();
+            //go new page
+
+            Intent intent = new Intent(getApplicationContext(), Lightning.class);
+            intent.putExtra("idLightning",finalValue);
+            startActivity(intent);
         });
 
 
         cleanButton.setOnClickListener(v -> {
+            Toast.makeText(getApplicationContext(),
+                    "Succesfull",Toast.LENGTH_SHORT).show();
+            //go new page
 
+            Intent intent = new Intent(getApplicationContext(), Cleaning.class);
+            intent.putExtra("idCleaning",finalValue);
+            startActivity(intent);
         });
 
 
 
 
     }
+
+
+
+
+
 }
