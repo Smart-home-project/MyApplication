@@ -1,6 +1,7 @@
 package com.example.myapplication.Cleaning;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,10 +47,16 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
 
 
         verticalLinearLayoutVertical = findViewById(R.id.verticalLayoutVertical);
+        addDevice = findViewById(R.id.addDevice);
+
+        addDevice.setOnClickListener(v -> {
+            //read txt file and call this method
+            addDevices();
+
+        });
 
 
-        //read txt file and call this method
-        addDevices();
+
 
 
 

@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
 public class Lightning extends AppCompatActivity implements LightningInterface {
 
 
-    ImageButton addDevice;
+
     LinearLayout verticalLinearLayoutVertical;
 
 
