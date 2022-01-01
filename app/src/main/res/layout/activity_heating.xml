@@ -24,15 +24,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="150dp"
+<<<<<<< Updated upstream
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
             android:id="@+id/verticalLayout"
             android:layout_width="match_parent"
+=======
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="315dp"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:id="@+id/verticalLayoutImage"
+            android:layout_width="100dp"
+>>>>>>> Stashed changes
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:orientation="vertical" >
 
+<<<<<<< Updated upstream
             <LinearLayout
                 android:id="@+id/horizontalLayout"
                 android:layout_width="match_parent"
@@ -66,4 +77,86 @@
 
         </LinearLayout>
     </ScrollView>
+=======
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="78dp"
+                android:layout_height="75dp"
+                android:contentDescription="TODO"
+                app:srcCompat="@drawable/heaterandcooler" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:layout_marginBottom="150dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="200dp"
+        tools:layout_editor_absoluteX="1dp">
+
+        <LinearLayout
+            android:id="@+id/verticalLayoutText"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:text="TextView" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:layout_marginBottom="150dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginEnd="60dp"
+        tools:layout_editor_absoluteX="1dp">
+
+        <LinearLayout
+            android:id="@+id/verticalLayoutSwitch"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:orientation="vertical" >
+
+
+            <Switch
+                android:id="@+id/switch2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="On/Off"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+
+    </ScrollView>
+
+
+>>>>>>> Stashed changes
 </androidx.constraintlayout.widget.ConstraintLayout>
