@@ -1,8 +1,13 @@
 package com.example.myapplication.Lightning;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.os.Bundle;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -11,6 +16,14 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class Lightning extends AppCompatActivity implements LightningInterface {
+
+
+    ImageButton addDevice;
+    LinearLayout verticalLinearLayoutVertical;
+
+
+
+
 
 
     int userID=-1;
@@ -29,10 +42,24 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
         userID=value;
         String line=getFromTextFinal(userID);
         System.out.println(line);
+
+
+
+
+        verticalLinearLayoutVertical = findViewById(R.id.verticalLayoutVertical);
+
+        //read txt file and call this method
+        addDevices();
+
+
+
+
+
+
     }
 
 
-    TextInputLayout text =findViewById(R.id.TextLayer);
+
 
 
     public String getFromTextFinal(int userid){
@@ -65,6 +92,80 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
 
     @Override
     public boolean addDevices() {
+
+
+        LinearLayout device = new LinearLayout(Lightning.this);
+
+        device.setOrientation(LinearLayout.HORIZONTAL);
+
+        // initialising new layout
+        ImageView imageView = new ImageView(Lightning.this);
+
+        // setting the image in the layout
+        imageView.setImageResource(R.drawable.lightbulb);
+
+        int width = 200;
+        int height = 200;
+
+
+
+        LinearLayout.LayoutParams paramsI = new LinearLayout.LayoutParams(width, height);
+
+        // setting the margin in linearlayout
+        //paramsI.setMargins(0, 30, 0, 10);
+        paramsI.weight = 0.4f;
+        imageView.setLayoutParams(paramsI);
+
+
+        device.addView(imageView);
+
+
+
+
+
+
+        TextView textView = new TextView(Lightning.this);
+        textView.setText("Hi");
+
+
+        LinearLayout.LayoutParams paramsT = new LinearLayout.LayoutParams(width, height);
+
+        // setting the margin in linearlayout
+        // paramsT.setMargins(0, 40, 0, 10);
+        paramsT.weight = 0.2f;
+        textView.setLayoutParams(paramsT);
+
+
+        device.addView(textView);
+
+
+
+
+
+        SwitchCompat sw = new SwitchCompat(Lightning.this);
+
+        sw.setText("On/Off");
+
+        sw.toggle();
+
+        boolean switchResult = sw.isChecked();
+
+        System.out.println(switchResult);
+
+        LinearLayout.LayoutParams paramsS = new LinearLayout.LayoutParams(width, height);
+
+        // setting the margin in linearlayout
+        paramsS.setMargins(0, 0, 90, 0);
+        paramsS.weight = 0.4f;
+        sw.setLayoutParams(paramsS);
+
+        device.addView(sw);
+
+
+
+        verticalLinearLayoutVertical.addView(device);
+
+
         return false;
     }
 
