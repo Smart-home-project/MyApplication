@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), SmartHomeMenu.class);
                 intent.putExtra("id",status);
+                intent.putExtra("username",EDusername.getText().toString());
                 startActivity(intent);
             }else{
                 Toast.makeText(getApplicationContext(),

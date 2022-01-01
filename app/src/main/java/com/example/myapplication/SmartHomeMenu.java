@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,14 +23,18 @@ public class SmartHomeMenu extends AppCompatActivity {
         Button heatButton = findViewById(R.id.heating);
         Button lightButton = findViewById(R.id.lightning);
         Button cleanButton = findViewById(R.id.cleaning);
+        TextView text = findViewById(R.id.textView);
 
         int value = 0;
+        String name = "";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             value = extras.getInt("id");
             System.out.println(value+" mainin ici");
+            name = extras.getString("username");
         }
 
+        text.setText("Welcome "+ name + " to Smart Home app");
 
         int finalValue = value;
         heatButton.setOnClickListener(v -> {
