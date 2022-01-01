@@ -1,9 +1,14 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.Cleaning.Cleaning;
+import com.example.myapplication.Heating.Heating;
+import com.example.myapplication.Lightning.Lightning;
 
 public class SmartHomeMenu extends AppCompatActivity {
 
@@ -22,15 +27,24 @@ public class SmartHomeMenu extends AppCompatActivity {
 
         heatButton.setOnClickListener(v -> {
 
+            Intent intent = new Intent(SmartHomeMenu.this, Heating.class);
+            startActivity(intent);
+
         });
 
 
         lightButton.setOnClickListener(v -> {
 
+            Intent intent = new Intent(SmartHomeMenu.this, Lightning.class);
+            startActivity(intent);
+
         });
 
 
         cleanButton.setOnClickListener(v -> {
+
+            Intent intent = new Intent(SmartHomeMenu.this, Cleaning.class);
+            startActivity(intent);
 
         });
 
