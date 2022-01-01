@@ -10,14 +10,16 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
+import com.example.myapplication.Heating.HeatingMachine;
 import com.example.myapplication.R;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Cleaning extends AppCompatActivity implements CleaningInterface {
 
-
+    ArrayList<CleaningDevice> heatingMachines = new ArrayList<CleaningDevice>();
 
     ImageButton addDevice;
     LinearLayout verticalLinearLayoutVertical;
@@ -37,12 +39,7 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
         }
         userID=value;
 
-        String line=getFromTextFinal(userID);
-        System.out.println(line);
-
-
-
-
+        getFromTextToCreateDevice(userID);
 
 
 
@@ -51,33 +48,39 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
 
         addDevice.setOnClickListener(v -> {
             //read txt file and call this method
-            addDevices();
+
 
         });
 
 
-
-
-
-
-
-
-
+        getFromTextToCreateDevice(userID);
     }
 
 
-    public String getFromTextFinal(int userid){
+    public void getFromTextToCreateDevice(int userid){
+
         String strLine = null;
         try {
             BufferedReader br = null;
 
-            br = new BufferedReader(new InputStreamReader(this.getAssets().open("DeviceList.txt")));
+            br = new BufferedReader(new InputStreamReader(this.getAssets().open("CleaningDevicesList.txt")));
 
-            int calc = (userid*3)+2;
-            for(int t=0;t<calc;t++){
-                strLine = br.readLine();
+
+            while ((strLine = br.readLine()) != null) {
+
+                String[] splitedText=strLine.split(",");
+
+                if(Integer.parseInt(splitedText[0])==userid){
+                    CleaningDevice newCleaningDevice=new CleaningDevice();
+                    newCleaningDevice.setName(splitedText[1]);
+                    newCleaningDevice.setOnOff(Integer.parseInt(splitedText[2]));
+                    newCleaningDevice.setVacuumPower(Integer.parseInt(splitedText[3]));
+                    newCleaningDevice.setCapacity(Integer.parseInt(splitedText[4]));
+                    System.out.println(newCleaningDevice.getName());
+                    addDevices(newCleaningDevice);
+                    heatingMachines.add(newCleaningDevice);
+                }
             }
-            //String[] splitedText=strLine.split(",");
 
             br.close();
 
@@ -85,7 +88,6 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return strLine;
     }
 
 
@@ -96,7 +98,7 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
     }
 
     @Override
-    public boolean addDevices() {
+    public boolean addDevices(CleaningDevice cd) {
 
         LinearLayout device = new LinearLayout(Cleaning.this);
 
@@ -131,7 +133,7 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
         TextView textView = new TextView(Cleaning.this);
 
         //TODO read txt file and get device name
-        textView.setText("Hi");
+        textView.setText(cd.getName());
 
 
         LinearLayout.LayoutParams paramsT = new LinearLayout.LayoutParams(width, height);

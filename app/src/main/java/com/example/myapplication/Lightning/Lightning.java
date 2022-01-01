@@ -9,22 +9,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.myapplication.Heating.HeatingMachine;
 import com.example.myapplication.R;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Lightning extends AppCompatActivity implements LightningInterface {
 
 
-
+    ArrayList<LightningDevice> lightningDevices = new ArrayList<LightningDevice>();
     LinearLayout verticalLinearLayoutVertical;
-
-
-
-
-
 
     int userID=-1;
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,40 +37,39 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
         }
 
         userID=value;
-        String line=getFromTextFinal(userID);
-        System.out.println(line);
-
-
-
 
         verticalLinearLayoutVertical = findViewById(R.id.verticalLayoutVertical);
 
         //read txt file and call this method
-        addDevices();
-
-
-
-
-
+        getFromTextToCreateDevice(userID);
 
     }
 
 
+    public void getFromTextToCreateDevice(int userid){
 
-
-
-    public String getFromTextFinal(int userid){
         String strLine = null;
         try {
             BufferedReader br = null;
 
-            br = new BufferedReader(new InputStreamReader(this.getAssets().open("DeviceList.txt")));
+            br = new BufferedReader(new InputStreamReader(this.getAssets().open("LightningDevicesList.txt")));
 
-            int calc = (userid*3)+1;
-            for(int t=0;t<calc;t++){
-                strLine = br.readLine();
+
+            while ((strLine = br.readLine()) != null) {
+
+                String[] splitedText=strLine.split(",");
+
+                if(Integer.parseInt(splitedText[0])==userid){
+                    LightningDevice newLightningDevice=new LightningDevice();
+                    newLightningDevice.setName(splitedText[1]);
+                    newLightningDevice.setOnOff(Integer.parseInt(splitedText[2]));
+                    newLightningDevice.setBrithness(Integer.parseInt(splitedText[3]));
+                    newLightningDevice.setColor(splitedText[4]);
+                    System.out.println(newLightningDevice.getName());
+                    addDevices(newLightningDevice);
+                    lightningDevices.add(newLightningDevice);
+                }
             }
-            //String[] splitedText=strLine.split(",");
 
             br.close();
 
@@ -81,8 +77,9 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return strLine;
     }
+
+
 
 
     public void printDevices() {
@@ -90,8 +87,8 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
 
     }
 
-    @Override
-    public boolean addDevices() {
+
+    public boolean addDevices(LightningDevice lw) {
 
 
         LinearLayout device = new LinearLayout(Lightning.this);
@@ -120,12 +117,8 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
         device.addView(imageView);
 
 
-
-
-
-
         TextView textView = new TextView(Lightning.this);
-        textView.setText("Hi");
+        textView.setText(lw.getName());
 
 
         LinearLayout.LayoutParams paramsT = new LinearLayout.LayoutParams(width, height);
@@ -170,7 +163,7 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
     }
 
     @Override
-    public void assignTask() {
+    public void assignTask(LightningDevice lw) {
 
     }
 

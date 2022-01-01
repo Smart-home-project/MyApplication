@@ -13,13 +13,14 @@ import com.example.myapplication.R;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Heating extends AppCompatActivity implements HeatingInterface {
 
 
 
     LinearLayout verticalLinearLayoutVertical;
-
+    ArrayList<HeatingMachine> heatingMachines = new ArrayList<HeatingMachine>();
 
     int userID=-1;
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,36 +35,41 @@ public class Heating extends AppCompatActivity implements HeatingInterface {
         }
         userID=value;
 
-        String line=getFromTextFinal(userID);
-        System.out.println(line);
+        ArrayList<HeatingMachine> heatingMachines = new ArrayList<HeatingMachine>();
 
 
         verticalLinearLayoutVertical = findViewById(R.id.verticalLayoutVertical);
-
-
-
-        //read txt file and call this method
-        addDevices();
-
-
-
+        getFromTextToCreateDevice(userID);
 
 
 
     }
 
-    public String getFromTextFinal(int userid){
+    public void getFromTextToCreateDevice(int userid){
+
         String strLine = null;
         try {
             BufferedReader br = null;
 
-            br = new BufferedReader(new InputStreamReader(this.getAssets().open("DeviceList.txt")));
+            br = new BufferedReader(new InputStreamReader(this.getAssets().open("HeatingDevicesList.txt")));
 
-            int calc = (userid*3)+0;
-            for(int t=0;t<calc;t++){
-                strLine = br.readLine();
+
+            while ((strLine = br.readLine()) != null) {
+
+                String[] splitedText=strLine.split(",");
+
+                if(Integer.parseInt(splitedText[0])==userid){
+                    HeatingMachine newHeatingMachine=new HeatingMachine();
+                    newHeatingMachine.setName(splitedText[1]);
+                    newHeatingMachine.setOnOff(Integer.parseInt(splitedText[2]));
+                    newHeatingMachine.setCapacity(Integer.parseInt(splitedText[3]));
+                    newHeatingMachine.setTemp(Integer.parseInt(splitedText[4]));
+                    newHeatingMachine.setDesiredTemp(Integer.parseInt(splitedText[5]));
+                    System.out.println(newHeatingMachine.getName());
+                    addDevices(newHeatingMachine);
+                    heatingMachines.add(newHeatingMachine);
+                }
             }
-            //String[] splitedText=strLine.split(",");
 
             br.close();
 
@@ -71,7 +77,6 @@ public class Heating extends AppCompatActivity implements HeatingInterface {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return strLine;
     }
 
 
@@ -81,8 +86,8 @@ public class Heating extends AppCompatActivity implements HeatingInterface {
 
     }
 
-    @Override
-    public boolean addDevices() {
+
+    public boolean addDevices(HeatingMachine hm) {
 
         LinearLayout device = new LinearLayout(Heating.this);
 
@@ -115,7 +120,7 @@ public class Heating extends AppCompatActivity implements HeatingInterface {
 
 
         TextView textView = new TextView(Heating.this);
-        textView.setText("Hi");
+        textView.setText(hm.getName());
 
 
         LinearLayout.LayoutParams paramsT = new LinearLayout.LayoutParams(width, height);

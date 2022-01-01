@@ -1,9 +1,10 @@
-Samsung Elektrikli Isıtıcı,Ufo Isıtıcı,Arçelik Klima
+Samsung Isıtıcı,Ufo Isıtıcı,Arçelik Klima
 1,0,1
-Eklenebilir diğer device
 10,35,78 //çalışma kapasiteleri
 28,30,5  //current derece
-35,20,15 //desired // ekstra assign task için bitiş ve başlangıc saatleri
+35,20,15 //desired
+//additional ısıtıcı
+20
 Philips Lamb
 1
 Eklenebilir diğer device
