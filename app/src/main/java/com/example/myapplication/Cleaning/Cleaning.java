@@ -147,16 +147,16 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
         device.addView(textView);
 
 
-
-
-
         SwitchCompat sw = new SwitchCompat(Cleaning.this);
 
         sw.setText("On/Off");
 
 
         //TODO read txt file and get the on/off info
-        sw.toggle();
+        if(cd.getOnOff()==1){
+            sw.toggle();
+        }
+        //sw.toggle();
 
 
         boolean switchResult = sw.isChecked();

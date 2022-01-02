@@ -141,7 +141,11 @@ public class Heating extends AppCompatActivity implements HeatingInterface {
 
         sw.setText("On/Off");
 
-        sw.toggle();
+
+        if(hm.getOnOff()==1){
+            sw.toggle();
+        }
+
 
         boolean switchResult = sw.isChecked();
 

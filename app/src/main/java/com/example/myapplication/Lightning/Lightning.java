@@ -3,15 +3,18 @@ package com.example.myapplication.Lightning;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.Heating.HeatingMachine;
 import com.example.myapplication.R;
 import com.google.android.material.textfield.TextInputLayout;
+
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -22,6 +25,8 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
 
     ArrayList<LightningDevice> lightningDevices = new ArrayList<LightningDevice>();
     LinearLayout verticalLinearLayoutVertical;
+
+    SwitchCompat sw;
 
     int userID=-1;
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,19 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
 
         //read txt file and call this method
         getFromTextToCreateDevice(userID);
+
+ //       sw.setOnClickListener(v -> {
+        //          boolean switchResult = sw.isChecked();
+        //          if(switchResult){
+        //               //false to true;
+        //
+        //
+        //        }else{
+                //true to false;
+
+        //        }
+
+        //   });
 
     }
 
@@ -88,7 +106,7 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
     }
 
 
-    public boolean addDevices(LightningDevice lw) {
+    public boolean addDevices(LightningDevice ld) {
 
 
         LinearLayout device = new LinearLayout(Lightning.this);
@@ -118,7 +136,7 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
 
 
         TextView textView = new TextView(Lightning.this);
-        textView.setText(lw.getName());
+        textView.setText(ld.getName());
 
 
         LinearLayout.LayoutParams paramsT = new LinearLayout.LayoutParams(width, height);
@@ -131,19 +149,17 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
 
         device.addView(textView);
 
-
-
-
-
-        SwitchCompat sw = new SwitchCompat(Lightning.this);
+        sw = new SwitchCompat(Lightning.this);
 
         sw.setText("On/Off");
 
-        sw.toggle();
+        if(ld.getOnOff()==1){
+            sw.toggle();
+        }
+
 
         boolean switchResult = sw.isChecked();
 
-        System.out.println(switchResult);
 
         LinearLayout.LayoutParams paramsS = new LinearLayout.LayoutParams(width, height);
 
@@ -154,13 +170,14 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
 
         device.addView(sw);
 
-
-
         verticalLinearLayoutVertical.addView(device);
 
 
         return false;
     }
+
+
+
 
     @Override
     public void assignTask(LightningDevice lw) {
