@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".RemoveUser"
+            android:exported="false" />
+        <activity
             android:name=".Cleaning.Cleaning"
             android:exported="false" />
         <activity

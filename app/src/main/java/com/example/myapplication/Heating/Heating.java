@@ -5,6 +5,7 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import android.os.Bundle;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -108,7 +109,7 @@ public class Heating extends AppCompatActivity implements HeatingInterface {
 
         // setting the margin in linearlayout
         //paramsI.setMargins(0, 30, 0, 10);
-        paramsI.weight = 0.4f;
+        paramsI.weight = 0.3f;
         imageView.setLayoutParams(paramsI);
 
 
@@ -118,7 +119,7 @@ public class Heating extends AppCompatActivity implements HeatingInterface {
 
 
 
-
+        //name
         TextView textView = new TextView(Heating.this);
         textView.setText(hm.getName());
 
@@ -132,6 +133,20 @@ public class Heating extends AppCompatActivity implements HeatingInterface {
 
 
         device.addView(textView);
+
+
+        //power
+        TextView textView2 = new TextView(Heating.this);
+        textView2.setText(hm.getCapacity() + ", " + hm.getTemp() + " ->" + hm.getDesiredTemp());
+
+
+        LinearLayout.LayoutParams paramsT2 = new LinearLayout.LayoutParams(width, height);
+
+        // setting the margin in linearlayout
+        // paramsT.setMargins(0, 40, 0, 10);
+        paramsT2.weight = 0.2f;
+        textView.setLayoutParams(paramsT2);
+        device.addView(textView2);
 
 
 
@@ -154,14 +169,22 @@ public class Heating extends AppCompatActivity implements HeatingInterface {
         LinearLayout.LayoutParams paramsS = new LinearLayout.LayoutParams(width, height);
 
         // setting the margin in linearlayout
-        paramsS.setMargins(0, 0, 90, 0);
-        paramsS.weight = 0.4f;
+        paramsS.setMargins(15, 0, 90, 0);
+        paramsS.weight = 0.3f;
         sw.setLayoutParams(paramsS);
 
+        
+        
+        
+        
+        
+        
+        if(!sw.isChecked()){
+            textView2.setVisibility(View.INVISIBLE);
+        }
+        
         device.addView(sw);
-
-
-
+        
         verticalLinearLayoutVertical.addView(device);
 
 
