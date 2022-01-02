@@ -109,7 +109,7 @@ public class Heating extends AppCompatActivity implements HeatingInterface {
 
         // setting the margin in linearlayout
         //paramsI.setMargins(0, 30, 0, 10);
-        paramsI.weight = 0.3f;
+        paramsI.weight = 0.2f;
         imageView.setLayoutParams(paramsI);
 
 
@@ -137,7 +137,7 @@ public class Heating extends AppCompatActivity implements HeatingInterface {
 
         //power
         TextView textView2 = new TextView(Heating.this);
-        textView2.setText(hm.getCapacity() + ", " + hm.getTemp() + " ->" + hm.getDesiredTemp());
+        textView2.setText("%" + hm.getCapacity() + ", " + hm.getTemp() + " ->" + hm.getDesiredTemp());
 
 
         LinearLayout.LayoutParams paramsT2 = new LinearLayout.LayoutParams(width, height);
@@ -170,7 +170,7 @@ public class Heating extends AppCompatActivity implements HeatingInterface {
 
         // setting the margin in linearlayout
         paramsS.setMargins(15, 0, 90, 0);
-        paramsS.weight = 0.3f;
+        paramsS.weight = 0.2f;
         sw.setLayoutParams(paramsS);
 
         

@@ -5,12 +5,14 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.Heating.Heating;
 import com.example.myapplication.Heating.HeatingMachine;
 import com.example.myapplication.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -128,7 +130,7 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
 
         // setting the margin in linearlayout
         //paramsI.setMargins(0, 30, 0, 10);
-        paramsI.weight = 0.4f;
+        paramsI.weight = 0.2f;
         imageView.setLayoutParams(paramsI);
 
 
@@ -143,11 +145,28 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
 
         // setting the margin in linearlayout
         // paramsT.setMargins(0, 40, 0, 10);
-        paramsT.weight = 0.2f;
+        paramsT.weight = 0.1f;
         textView.setLayoutParams(paramsT);
 
 
         device.addView(textView);
+
+
+        //power
+        TextView textView2 = new TextView(Lightning.this);
+        textView2.setText("%" + ld.getBrithness() + " " + ld.getColor());
+
+
+        LinearLayout.LayoutParams paramsT2 = new LinearLayout.LayoutParams(width, height);
+
+        // setting the margin in linearlayout
+        // paramsT.setMargins(0, 40, 0, 10);
+        paramsT2.weight = 0.25f;
+        textView.setLayoutParams(paramsT2);
+        device.addView(textView2);
+
+
+
 
         sw = new SwitchCompat(Lightning.this);
 
@@ -165,11 +184,16 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
         LinearLayout.LayoutParams paramsS = new LinearLayout.LayoutParams(width, height);
 
         // setting the margin in linearlayout
-        paramsS.setMargins(0, 0, 90, 0);
-        paramsS.weight = 0.4f;
+        paramsS.setMargins(20, 0, 90, 0);
+        paramsS.weight = 0.25f;
         sw.setLayoutParams(paramsS);
 
         device.addView(sw);
+
+        if(!sw.isChecked()){
+            textView2.setVisibility(View.INVISIBLE);
+        }
+
 
         verticalLinearLayoutVertical.addView(device);
 

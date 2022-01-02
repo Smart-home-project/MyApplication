@@ -1,5 +1,6 @@
 package com.example.myapplication.Cleaning;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -10,7 +11,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
+import com.example.myapplication.AddDevice;
+import com.example.myapplication.Heating.Heating;
 import com.example.myapplication.Heating.HeatingMachine;
+import com.example.myapplication.Lightning.Lightning;
 import com.example.myapplication.R;
 
 import java.io.BufferedReader;
@@ -32,10 +36,20 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
 
 
         int value = 0;
+        int counter = 0;
+
+        String deviceName = "";
+        String vacuumPower = "";
+        String deviceCapacity = "";
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             value = extras.getInt("idHeating");
             System.out.println(value+" mainin ici");
+            counter = extras.getInt("counter");
+            deviceName = extras.getString("deviceName");
+            vacuumPower = extras.getString("vacuumPower");
+            deviceCapacity = extras.getString("deviceCapacity");
         }
         userID=value;
 
@@ -49,13 +63,35 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
         addDevice.setOnClickListener(v -> {
             //read txt file and call this method
 
+            Intent intent = new Intent(getApplicationContext(), AddDevice.class);
+            startActivity(intent);
 
         });
 
 
         getFromTextToCreateDevice(userID);
-    }
 
+        CleaningDevice cd;
+
+
+        if(counter == 1){
+
+           cd  = new CleaningDevice();
+
+            cd.setName(deviceName);
+            cd.setCapacity(Integer.valueOf(deviceCapacity));
+            cd.setVacuumPower(Integer.valueOf(vacuumPower));
+            cd.setOnOff(1);
+
+            addDevices(cd);
+
+
+        }
+
+
+
+
+    }
 
     public void getFromTextToCreateDevice(int userid){
 
@@ -119,7 +155,7 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
 
         // setting the margin in linearlayout
         //paramsI.setMargins(0, 30, 0, 10);
-        paramsI.weight = 0.4f;
+        paramsI.weight = 0.25f;
         imageView.setLayoutParams(paramsI);
 
 
@@ -147,6 +183,21 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
         device.addView(textView);
 
 
+        //power
+        TextView textView2 = new TextView(Cleaning.this);
+        textView2.setText("%" + cd.getVacuumPower() + " " + cd.getCapacity());
+
+
+        LinearLayout.LayoutParams paramsT2 = new LinearLayout.LayoutParams(width, height);
+
+        // setting the margin in linearlayout
+        // paramsT.setMargins(0, 40, 0, 10);
+        paramsT2.weight = 0.25f;
+        textView.setLayoutParams(paramsT2);
+        device.addView(textView2);
+
+
+
         SwitchCompat sw = new SwitchCompat(Cleaning.this);
 
         sw.setText("On/Off");
@@ -166,11 +217,15 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
         LinearLayout.LayoutParams paramsS = new LinearLayout.LayoutParams(width, height);
 
         // setting the margin in linearlayout
-        paramsS.setMargins(0, 0, 90, 0);
-        paramsS.weight = 0.4f;
+        paramsS.setMargins(20, 0, 90, 0);
+        paramsS.weight = 0.3f;
         sw.setLayoutParams(paramsS);
 
         device.addView(sw);
+
+        if(!sw.isChecked()){
+            textView2.setVisibility(View.INVISIBLE);
+        }
 
 
 
