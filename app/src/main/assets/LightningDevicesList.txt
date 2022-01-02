@@ -1,0 +1,2 @@
+0,Philips Lamb,1,10,Red
+1,Philips Lamb,0,80,Blue

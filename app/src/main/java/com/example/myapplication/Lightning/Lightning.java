@@ -25,7 +25,7 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
 
     ArrayList<LightningDevice> lightningDevices = new ArrayList<LightningDevice>();
     LinearLayout verticalLinearLayoutVertical;
-
+    ArrayList<SwitchCompat> switchList = new ArrayList<SwitchCompat>();
     SwitchCompat sw;
 
     int userID=-1;
@@ -151,6 +151,7 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
 
         sw = new SwitchCompat(Lightning.this);
 
+        switchList.add(sw);
         sw.setText("On/Off");
 
         if(ld.getOnOff()==1){

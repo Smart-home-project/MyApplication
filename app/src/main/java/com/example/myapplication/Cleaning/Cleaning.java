@@ -97,7 +97,7 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
 
     }
 
-    @Override
+
     public boolean addDevices(CleaningDevice cd) {
 
         LinearLayout device = new LinearLayout(Cleaning.this);

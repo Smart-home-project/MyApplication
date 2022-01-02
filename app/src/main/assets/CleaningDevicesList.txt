@@ -1,0 +1,3 @@
+0,Bosch Süpürge,1,10,60
+0,Simbo Süpürge,0,35,3
+1,Bosch Akıllı,1,10,50 

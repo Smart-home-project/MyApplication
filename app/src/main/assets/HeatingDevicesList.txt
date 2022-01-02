@@ -1,0 +1,4 @@
+0,Samsung Isıtıcı,1,10,28,35
+0,Ufo Isıtıcı,0,35,30,20
+0,Arçelik Klima,1,78,5,15
+1,Samsung Isıtıcı,1,18,18,20
