@@ -1,12 +1,15 @@
 package com.example.myapplication.Cleaning;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -15,9 +18,12 @@ import com.example.myapplication.AddDevice;
 import com.example.myapplication.Heating.Heating;
 import com.example.myapplication.Heating.HeatingMachine;
 import com.example.myapplication.Lightning.Lightning;
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.MemoryReserve;
 import com.example.myapplication.R;
 
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
@@ -26,7 +32,11 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
     ArrayList<CleaningDevice> heatingMachines = new ArrayList<CleaningDevice>();
 
     ImageButton addDevice;
+    ImageButton removeDevice;
     LinearLayout verticalLinearLayoutVertical;
+
+    LinearLayout[] deviceLayouts = new LinearLayout[100];
+    int currentCounter = 0;
 
 
     int userID=-1;
@@ -37,6 +47,7 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
 
         int value = 0;
         int counter = 0;
+
 
         String deviceName = "";
         String vacuumPower = "";
@@ -59,12 +70,27 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
 
         verticalLinearLayoutVertical = findViewById(R.id.verticalLayoutVertical);
         addDevice = findViewById(R.id.addDevice);
+        removeDevice = findViewById(R.id.removeDevice);
 
         addDevice.setOnClickListener(v -> {
             //read txt file and call this method
 
             Intent intent = new Intent(getApplicationContext(), AddDevice.class);
             startActivity(intent);
+
+        });
+
+        removeDevice.setOnClickListener(v -> {
+            //read txt file and call this method
+            try{
+                for(int i = 1; i < MainActivity.memoryReserve.chosenCleaning.length; i++) {
+                    if(MainActivity.memoryReserve.chosenCleaning[i])
+                        deviceLayouts[i].setVisibility(View.INVISIBLE);
+                }
+            } catch (Exception e) {
+
+            }
+
 
         });
 
@@ -100,11 +126,12 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
             BufferedReader br = null;
 
             br = new BufferedReader(new InputStreamReader(this.getAssets().open("CleaningDevicesList.txt")));
-
-
+            int removedCounter = 1;
+String theadded ="";
             while ((strLine = br.readLine()) != null) {
 
                 String[] splitedText=strLine.split(",");
+                if(!MainActivity.memoryReserve.chosenCleaning[removedCounter]) {
 
                 if(Integer.parseInt(splitedText[0])==userid){
                     CleaningDevice newCleaningDevice=new CleaningDevice();
@@ -113,9 +140,15 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
                     newCleaningDevice.setVacuumPower(Integer.parseInt(splitedText[3]));
                     newCleaningDevice.setCapacity(Integer.parseInt(splitedText[4]));
                     System.out.println(newCleaningDevice.getName());
-                    addDevices(newCleaningDevice);
-                    heatingMachines.add(newCleaningDevice);
+                        addDevices(newCleaningDevice);
+                        heatingMachines.add(newCleaningDevice);
+
+
+
                 }
+                }
+                removedCounter++;
+
             }
 
             br.close();
@@ -227,11 +260,45 @@ public class Cleaning extends AppCompatActivity implements CleaningInterface {
             textView2.setVisibility(View.INVISIBLE);
         }
 
+        device.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int dev = FindDevice(device);
+                if(!MainActivity.memoryReserve.chosenCleaning[dev]) {
+                    device.setBackgroundColor(Color.parseColor("#0044EE"));
 
+                    MainActivity.memoryReserve.chosenCleaning[dev] = true;
+                }
+
+                else {
+                    device.setBackgroundColor(Color.parseColor("#ffffff"));
+
+                    MainActivity.memoryReserve.chosenCleaning[dev] = false;
+                }
+                System.out.println("chosenCleaning at" + dev +" " +  MainActivity.memoryReserve.chosenCleaning);
+
+                return false;
+            }
+        });
+        deviceLayouts[currentCounter++] = device;
 
         verticalLinearLayoutVertical.addView(device);
 
         return false;
+    }
+
+    public int FindDevice(LinearLayout device) {
+        int k = 0;
+        for(int i = 0; i < deviceLayouts.length; i++) {
+            if(deviceLayouts[i] == device) {
+                System.out.println("returned " + (i));
+
+                return i;
+
+            }
+
+        }
+        return k;
     }
 
     @Override

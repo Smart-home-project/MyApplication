@@ -20,6 +20,7 @@ import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static MemoryReserve memoryReserve = new MemoryReserve();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         EditText EDusername = findViewById(R.id.username);
         EditText EDpassword = findViewById(R.id.password);
         Button login = findViewById(R.id.login);
-
 
 
 

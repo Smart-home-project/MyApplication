@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -26,9 +29,13 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
 
 
     ArrayList<LightningDevice> lightningDevices = new ArrayList<LightningDevice>();
+    ArrayList<LinearLayout> deviceLayouts = new ArrayList<LinearLayout>();
     LinearLayout verticalLinearLayoutVertical;
     ArrayList<SwitchCompat> switchList = new ArrayList<SwitchCompat>();
     SwitchCompat sw;
+    boolean[] chosen = new boolean[100];
+    int currentDeviceCounter = 0;
+
 
     int userID=-1;
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +120,8 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
 
         LinearLayout device = new LinearLayout(Lightning.this);
 
+
+
         device.setOrientation(LinearLayout.HORIZONTAL);
 
         // initialising new layout
@@ -195,13 +204,34 @@ public class Lightning extends AppCompatActivity implements LightningInterface {
         }
 
 
+        device.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                chosen[FindDevice(device)] = !chosen[FindDevice(device)];
+
+                if(chosen[FindDevice(device)])
+                    device.setBackgroundColor(Color.parseColor("#0000CC"));
+                else
+                    device.setBackgroundColor(Color.parseColor("#ffffff"));
+
+                return false;
+            }
+        });
         verticalLinearLayoutVertical.addView(device);
 
+        deviceLayouts.add(device);
+        currentDeviceCounter++;
 
         return false;
     }
 
+    public int FindDevice(LinearLayout device) {
+        for(int i = 0; i < deviceLayouts.size(); i++)
+            if(deviceLayouts.get(i) == device)
+                return i;
 
+            return 0;
+    }
 
 
     @Override

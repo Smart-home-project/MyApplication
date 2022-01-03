@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Atinc/Documents/GitHub/MyApplication/app/src/main/res/layout/activity_add_device.xml" value="0.1796875" />
+        <entry key="..\:/Users/Atinc/Documents/GitHub/MyApplication/app/src/main/res/layout/activity_cleaning.xml" value="0.1796875" />
+        <entry key="..\:/Users/Atinc/Documents/GitHub/MyApplication/app/src/main/res/layout/activity_remove_user.xml" value="0.22" />
         <entry key="..\:/Users/gokme/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_cleaning.xml" value="0.24375" />
         <entry key="..\:/Users/gokme/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_heating.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/gokme/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_lightning.xml" value="0.2296875" />

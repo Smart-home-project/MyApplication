@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Cleaning.Cleaning;
 import com.example.myapplication.Heating.Heating;
 import com.example.myapplication.Lightning.Lightning;
+
+import java.util.ArrayList;
 
 public class SmartHomeMenu extends AppCompatActivity {
 
@@ -29,6 +32,7 @@ public class SmartHomeMenu extends AppCompatActivity {
 
         int value = 0;
         String name = "";
+
 
 
         Bundle extras = getIntent().getExtras();
@@ -50,6 +54,7 @@ public class SmartHomeMenu extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),
                     "Succesfull",Toast.LENGTH_SHORT).show();
             //go new page
+
 
             Intent intent = new Intent(getApplicationContext(), Heating.class);
             intent.putExtra("idHeating", finalValue);
